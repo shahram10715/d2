@@ -35,3 +35,7 @@ function changePosition(e){
     e.previousElementSibling.focus();
   }
 }
+
+function testFunc(){
+  alert('hey there')
+}
