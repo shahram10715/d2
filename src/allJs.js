@@ -37,5 +37,22 @@ function changePosition(e){
 }
 
 function testFunc(){
-  alert('hey there')
+  let url = "https://en.wikipedia.org/w/api.php";
+  let params = {
+    action: "query",
+    format: "json",
+    list: "random",
+    rnlimit: "5"
+  };
+  url = url + "?origin=*";
+  Object.keys(params).forEach(function(key){url += "&" + key + "=" + params[key];});
+
+  fetch(url)
+    .then(function(response){return response.json();})
+    .then(function(response) {
+        var randoms = response.query.random;
+        for (var r in randoms) {
+            alert(randoms[r].title);
+        }
+    })
 }
