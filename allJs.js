@@ -25,7 +25,7 @@ function readWords() {
   };
   xhttp.open("GET", "enwiki.txt", true);
   xhttp.send();
-  alert(words[5])
+  alert(words[0])
 }
 
 function changePosition(e){
