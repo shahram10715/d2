@@ -23,7 +23,7 @@ function readWords() {
      delete words[0]
     }
   };
-  xhttp.open("GET", "src/enwiki.txt", true);
+  xhttp.open("GET", "enwiki.txt", true);
   xhttp.send();
   alert(words[5])
 }
