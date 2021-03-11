@@ -30,27 +30,24 @@ function readWords(){
       words = data;
       words = words.split('\n');
       words.shift()
-      alert(words[1]);
+      document.getElementById('answer').innerHTML = replaceBlank(words[20]);
     });
 }
 
-function testFunc(){
-  let url = "https://en.wikipedia.org/w/api.php";
-  let params = {
+function getTitle(){
+  var url = "https://en.wikipedia.org/w/api.php";
+
+  var params = {
     action: "query",
     format: "json",
     list: "random",
     rnlimit: "5"
   };
+
   url = url + "?origin=*";
   Object.keys(params).forEach(function(key){url += "&" + key + "=" + params[key];});
 
   fetch(url)
     .then(function(response){return response.json();})
-    .then(function(response) {
-        var randoms = response.query.random;
-        for (var r in randoms) {
-            alert(randoms[r].title);
-        }
-    })
+    .then(function(response){console.log(response);})
 }
