@@ -1,4 +1,5 @@
 var words;
+//var title2;
 
 function showAnswer(){
   document.getElementById("answer").hidden = false;
@@ -35,19 +36,22 @@ function readWords(){
 }
 
 function getTitle(){
-  var url = "https://en.wikipedia.org/w/api.php";
-
-  var params = {
-    action: "query",
-    format: "json",
-    list: "random",
-    rnlimit: "5"
-  };
-
-  url = url + "?origin=*";
-  Object.keys(params).forEach(function(key){url += "&" + key + "=" + params[key];});
+  var url = "https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=extracts&list=random&exintro=1&explaintext=1&rnnamespace=0";
+  //let title2;
 
   fetch(url)
-    .then(function(response){return response.json();})
-    .then(function(response){console.log(response);})
+    .then(function(response){
+      return response.json();
+    })
+    .then(function(response){
+      return (response.query.random[0].title);
+      //console.log(title2);
+      //document.getElementById("answer").innerHTML = title2;
+    })
+  //return title2;
+}
+
+
+function alertTitle(){
+  alert(getTitle())
 }
