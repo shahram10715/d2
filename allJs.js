@@ -51,7 +51,4 @@ function getTitle(){
   //return title2;
 }
 
-
-function alertTitle(){
-  alert(getTitle())
-}
+console.log(getTitle());
