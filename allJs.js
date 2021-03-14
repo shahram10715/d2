@@ -41,3 +41,17 @@ async function getTitle(){
   return randTitle;
 }
 
+function myDisplay(value){
+  console.log(value);
+}
+
+async function getParaph(){
+  let data1 = await fetch('https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=extracts&titles=linux&exintro=1&explaintext=1');
+  let data2 = await data1.json();
+  let data3 = data2.query.pages;
+  let pageID = Object.keys(data2.query.pages[0]);
+  let paraph = data3[pageID][3];
+  return paraph;
+}
+
+getParaph().then(function (value) {myDisplay(value);});
