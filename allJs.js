@@ -37,9 +37,9 @@ function readWords(){
 
 function getTitle(){
   var url = "https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=extracts&list=random&exintro=1&explaintext=1&rnnamespace=0";
-  //let title2;
+  let title2;
 
-  fetch(url)
+  title2 = fetch(url)
     .then(function(response){
       return response.json();
     })
@@ -48,7 +48,7 @@ function getTitle(){
       //console.log(title2);
       //document.getElementById("answer").innerHTML = title2;
     })
-  //return title2;
+  return title2;
 }
 
-console.log("ehlllllo");
+console.log(getTitle());
