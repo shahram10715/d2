@@ -1,5 +1,4 @@
 var words;
-//var title2;
 
 function showAnswer(){
   document.getElementById("answer").hidden = false;
@@ -35,20 +34,10 @@ function readWords(){
     });
 }
 
-function getTitle(){
-  var url = "https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=extracts&list=random&exintro=1&explaintext=1&rnnamespace=0";
-  let title2;
-
-  title2 = fetch(url)
-    .then(function(response){
-      return response.json();
-    })
-    .then(function(response){
-      return (response.query.random[0].title);
-      //console.log(title2);
-      //document.getElementById("answer").innerHTML = title2;
-    })
-  return title2;
+async function getTitle(){
+  let data1 = await fetch('https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=extracts&list=random&exintro=1&explaintext=1&rnnamespace=0');
+  let data2 = await data1.json();
+  let randTitle = data2.query.random[0].title;
+  return randTitle;
 }
 
-console.log(getTitle());
