@@ -35,20 +35,23 @@ function readWords(){
 }
 
 function getTitle(){
-  url = 'https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=extracts&list=random&exintro=1&explaintext=1&rnnamespace=0'
+  let url = 'https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=extracts&list=random&exintro=1&explaintext=1&rnnamespace=0'
   fetch(url)
     .then(function(response){return response.json();})
     .then(function(response){
-      title = response.query.random[0].title;
-      myDisplay(title);});
+      let pageId = response.query.random[0].id;
+      getParaph(pageId);});
 }
 
 function myDisplay(value){
   console.log(value);
 }
 
-function getParaph(title){
-
+function getParaph(pageId){
+  let url = 'https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=extracts&exintro=1&explaintext=1&pageids='+pageId;
+  fetch(url)
+    .then(function(response){return response.json();})
+    .then(function(response){myDisplay(response);});
 }
 
 getTitle();
