@@ -34,24 +34,21 @@ function readWords(){
     });
 }
 
-async function getTitle(){
-  let data1 = await fetch('https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=extracts&list=random&exintro=1&explaintext=1&rnnamespace=0');
-  let data2 = await data1.json();
-  let randTitle = data2.query.random[0].title;
-  return randTitle;
+function getTitle(){
+  url = 'https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=extracts&list=random&exintro=1&explaintext=1&rnnamespace=0'
+  fetch(url)
+    .then(function(response){return response.json();})
+    .then(function(response){
+      title = response.query.random[0].title;
+      myDisplay(title);});
 }
 
 function myDisplay(value){
   console.log(value);
 }
 
-async function getParaph(){
-  let data1 = await fetch('https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=extracts&titles=linux&exintro=1&explaintext=1');
-  let data2 = await data1.json();
-  let data3 = data2.query.pages;
-  let pageID = Object.keys(data2.query.pages[0]);
-  let paraph = data3[pageID][3];
-  return paraph;
+function getParaph(title){
+
 }
 
-getParaph().then(function (value) {myDisplay(value);});
+getTitle();
