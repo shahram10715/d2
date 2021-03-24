@@ -34,6 +34,10 @@ function readWords(){
     });
 }
 
+function myDisplay(value){
+  console.log(value);
+}
+
 function getTitle(){
   let url = 'https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=extracts&list=random&exintro=1&explaintext=1&rnnamespace=0'
   fetch(url)
@@ -43,15 +47,26 @@ function getTitle(){
       getParaph(pageId);});
 }
 
-function myDisplay(value){
-  console.log(value);
-}
-
 function getParaph(pageId){
   let url = 'https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=extracts&exintro=1&explaintext=1&pageids='+pageId;
   fetch(url)
     .then(function(response){return response.json();})
-    .then(function(response){myDisplay(response);});
+    .then(function(response){
+      let paraph = response.query.pages[pageId].extract;
+      checkParaph(paraph);});
+}
+
+function checkParaph(paraph){
+  spParaph = paraph.split(' ');
+  if (spParaph.length < 40){
+    return false;
+  } else if{
+    //blank words are less than 5
+    return false;
+  } else{
+    return true;
+  }
+  myDisplay(spParaph);
 }
 
 getTitle();
