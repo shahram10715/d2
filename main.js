@@ -1,4 +1,38 @@
 var words;
+var sliceWords;
+var nwords = 5000;
+
+async function myGetJson(url){
+  let res = await fetch(url);
+  let data = await res.json();
+  return data;
+}
+
+async function myGetText(url){
+  let res = await fetch(url);
+  let data = await res.text();
+  return data;
+}
+
+async function main(){
+  var wiki = await myGetText('enwiki.txt');
+  console.log(wiki);
+}
+
+main();
+/*
+fetch('novels.txt')
+.then(function(response){return response.text();})
+.then(function(data){
+  words = data;
+  words = words.split('\n');
+});
+
+words50 = words.slice(0,50);
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
 
 function showAnswer(){
   document.getElementById("answer").hidden = false;
@@ -23,28 +57,14 @@ function replaceBlank(word){
   return word2;
 }
 
-function readWords(){
-  fetch('enwiki.txt')
-    .then(function(response){return response.text();})
-    .then(function(data){
-      words = data;
-      words = words.split('\n');
-      words.shift()
-      document.getElementById('answer').innerHTML = replaceBlank(words[20]);
-    });
-}
-
-function myDisplay(value){
-  console.log(value);
-}
-
 function getTitle(){
   let url = 'https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=extracts&list=random&exintro=1&explaintext=1&rnnamespace=0'
   fetch(url)
     .then(function(response){return response.json();})
     .then(function(response){
       let pageId = response.query.random[0].id;
-      getParaph(pageId);});
+      getParaph(pageId);
+    });
 }
 
 function getParaph(pageId){
@@ -53,20 +73,31 @@ function getParaph(pageId){
     .then(function(response){return response.json();})
     .then(function(response){
       let paraph = response.query.pages[pageId].extract;
-      checkParaph(paraph);});
+      removingWordsIndex(paraph);
+    });
 }
 
-function checkParaph(paraph){
+function changeNumber(){
+  nwords = document.getElementById('nwords').value;
+  sliceWords = words.slice(0,nwords);
+}
+
+function removingWordsIndex(paraph){
   spParaph = paraph.split(' ');
-  if (spParaph.length < 40){
-    return false;
-  } else if{
-    //blank words are less than 5
-    return false;
-  } else{
-    return true;
+  lenParaph = spParaph.length;
+  let ind = []
+  l1 = spParaph.length;
+  l2 = swords.length;
+  for (i=0; i<l1; i++){
+    for (j=0; j<l2; j++){
+      //
+      if (spParaph[i] == swords[j]){
+        ind.push(i);
+      }
+    }
   }
-  myDisplay(spParaph);
+  console.log(ind);
+  return ind;
 }
 
-getTitle();
+//getTitle();
