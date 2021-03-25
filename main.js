@@ -1,38 +1,4 @@
-var words;
-var sliceWords;
 var nwords = 5000;
-
-async function myGetJson(url){
-  let res = await fetch(url);
-  let data = await res.json();
-  return data;
-}
-
-async function myGetText(url){
-  let res = await fetch(url);
-  let data = await res.text();
-  return data;
-}
-
-async function main(){
-  var wiki = await myGetText('enwiki.txt');
-  console.log(wiki);
-}
-
-main();
-/*
-fetch('novels.txt')
-.then(function(response){return response.text();})
-.then(function(data){
-  words = data;
-  words = words.split('\n');
-});
-
-words50 = words.slice(0,50);
-*/
-
-////////////////////////////////////////////////////////////////////////////////////////////
-
 
 function showAnswer(){
   document.getElementById("answer").hidden = false;
@@ -57,47 +23,44 @@ function replaceBlank(word){
   return word2;
 }
 
-function getTitle(){
-  let url = 'https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=extracts&list=random&exintro=1&explaintext=1&rnnamespace=0'
-  fetch(url)
-    .then(function(response){return response.json();})
-    .then(function(response){
-      let pageId = response.query.random[0].id;
-      getParaph(pageId);
-    });
-}
-
-function getParaph(pageId){
-  let url = 'https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=extracts&exintro=1&explaintext=1&pageids='+pageId;
-  fetch(url)
-    .then(function(response){return response.json();})
-    .then(function(response){
-      let paraph = response.query.pages[pageId].extract;
-      removingWordsIndex(paraph);
-    });
-}
-
 function changeNumber(){
   nwords = document.getElementById('nwords').value;
   sliceWords = words.slice(0,nwords);
 }
 
-function removingWordsIndex(paraph){
-  spParaph = paraph.split(' ');
-  lenParaph = spParaph.length;
-  let ind = []
-  l1 = spParaph.length;
-  l2 = swords.length;
-  for (i=0; i<l1; i++){
-    for (j=0; j<l2; j++){
-      //
-      if (spParaph[i] == swords[j]){
-        ind.push(i);
-      }
-    }
-  }
-  console.log(ind);
-  return ind;
+async function getPageID(){
+  let url = 'https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=extracts&list=random&exintro=1&explaintext=1&rnnamespace=0';
+  let res1 = await fetch(url);
+  let res2 = await res1.json();
+  let res3 = await res2.query.random[0].id;
+  return res3;
 }
 
-//getTitle();
+async function getParaph(pageId){
+  let url = 'https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=extracts&exintro=1&explaintext=1&pageids='+pageId;
+  let res1 = await fetch(url);
+  let res2 = await res1.json();
+  let res3 = await res2.query.pages[pageId].extract;
+  return res3;
+}
+
+async function getWiki(){
+  let url = 'enwiki.txt';
+  let res1 = await fetch(url);
+  let words = await res1.text();
+  words = words.split('\n');
+  words.shift();
+  return words
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+async function main(){
+  let pageid = await getPageID();
+  //console.log(pageid);
+  let paraph = await getParaph(pageid);
+  //console.log(paraph);
+  let words = await getWiki();
+  console.log(words[5]);
+}
+
+main();
