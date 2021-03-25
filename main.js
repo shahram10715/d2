@@ -1,4 +1,5 @@
 var nwords = 5000;
+var qwords;
 
 function showAnswer(){
   document.getElementById("answer").hidden = false;
@@ -50,7 +51,29 @@ async function getWiki(){
   let words = await res1.text();
   words = words.split('\n');
   words.shift();
-  return words
+  return words;
+}
+
+function removingIndex(paraph){
+  let removingList = [];
+  paraph = paraph.split(' ');
+  let l1 = paraph.length;
+  for (i=0; i<l1; i++){
+    if (qwords.includes(paraph[i])){
+      removingList.push(i);
+      console.log(qwords.indexOf(paraph[i]));
+      console.log(paraph[i]);
+    }
+  }
+  return removingList;
+}
+
+function checkParaph(removingList){
+  if (removingList.length < 5){
+    return true;
+  } else {
+    return false;
+  }
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -58,9 +81,13 @@ async function main(){
   let pageid = await getPageID();
   //console.log(pageid);
   let paraph = await getParaph(pageid);
-  //console.log(paraph);
+  console.log(paraph);
   let words = await getWiki();
-  console.log(words[5]);
+  //console.log(words[5]);
+  qwords = words.slice(0, nwords);
+  //console.log(qwords[5]);
+  myList = removingIndex(paraph);
+  console.log(myList);
 }
 
 main();
