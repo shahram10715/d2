@@ -1,13 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <meta charset="utf-8">
+  <title>Duolingo Fill in The Blanks</title>
+  <style>
+  header{
+    background-color:#ffaa00;
+    color:white;
+    height: 100px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  body{
+    width: 90%;
+    text-align: justify;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  input[type=text]{
+    color: #ffaa00;
+    font-weight: bold;
+  }
+  </style>
   <script src="main.js"></script>
 </head>
-<body>
-  
+<body onload="main();">
+  <header>
+    <h1>Duolingo Fill in The Blanks</h1>
+  </header>
+  <br>
+    Enter number of words to be asked (at least 5000)
+    <input type="number" value="5000" required min="5000" max="12000" step="1000" id="nwords" onchange="changeNumber();"><br>
+    <button onclick="showAnswer()">Show Answer</button>
+    <button onclick="main();">New Test</button><br>
+    <p id="question"> the blank paragraph goes here some text here to fill</p><br>
+    <p id="answer" hidden=true></p><br>
 </body>
 </html>
+
