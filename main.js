@@ -92,7 +92,6 @@ function replaceBlank(word){
 
 function makeQuestion(paraph, rlist){
   let q = paraph; // to change
-  let l1 = rlist.length;
   // this part of code should be changed to work in a for loop
   // just to remember when I add a for loop it goes to infinite with the loop of replaceBlank function
   q[rlist[0]] = replaceBlank(paraph[rlist[0]]);
