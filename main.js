@@ -106,6 +106,7 @@ function makeQuestion(paraph, rlist){
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 async function main(){
+  document.getElementById("answer").hidden = true;
   let pageid = await getPageID();
   let paraph = await getParaph(pageid);
   let words = await getWiki();
